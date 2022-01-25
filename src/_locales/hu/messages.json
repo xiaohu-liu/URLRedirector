@@ -7,7 +7,6 @@
     "message": "Bizonyos URL-ek automatikus átirányítása.",
     "description": "Description of the extension."
   },
-
   "redirect": {
     "message": "Átirányítás",
     "description": "Redirect."
@@ -28,7 +27,6 @@
     "message": "Időköz",
     "description": "Interval."
   },
-
   "optionsTitle": {
     "message": "Az URLRedirector beállítása",
     "description": "Title of options page."
@@ -56,6 +54,10 @@
   "save": {
     "message": "Mentés",
     "description": "Save."
+  },
+  "init": {
+    "message": "Init",
+    "description": "Init."
   },
   "reset": {
     "message": "Visszaállítás",
@@ -125,7 +127,6 @@
     "message": "Prioritás",
     "description": "Rule priority."
   },
-
   "userRules": {
     "message": "Felhasználói szabályok",
     "description": "User rules."
@@ -150,7 +151,6 @@
     "message": "Cél",
     "description": "Target URL pattern."
   },
-
   "details": {
     "message": "Részletek",
     "description": "Details"
@@ -175,7 +175,6 @@
     "message": "Fájl",
     "description": "File."
   },
-
   "descriptionPlaceholder": {
     "message": "Szabály leírása, elhagyható",
     "description": "Description."
@@ -232,7 +231,6 @@
     "message": "Leírás",
     "description": "Types description."
   },
-
   "jsonFormat": {
     "message": "JSON formátum",
     "description": "JSON format."

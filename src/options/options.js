@@ -57,7 +57,7 @@ function showCloudMessage(message) {
 $("#lnkCloudUpload").click(function () {
     var type = $("#sltCloud").val();
     var cloudDriver = null;
-    if (type=="onedrive") {
+    if (type == "onedrive") {
         cloudDriver = onedrive;
 
     }
@@ -84,7 +84,7 @@ $("#lnkCloudUpload").click(function () {
 $("#lnkCloudDownload").click(function () {
     var type = $("#sltCloud").val();
     var cloudDriver = null;
-    if (type=="onedrive") {
+    if (type == "onedrive") {
         cloudDriver = onedrive;
     }
     if (cloudDriver) {
@@ -123,8 +123,7 @@ function moveUpOrDown(tr, isUp) {
     var tmp = null;
     if ($table.is($("#tblOnlineURLs"))) {
         arr = storage.onlineURLs;
-    }
-    else if ($table.is($("#tblCustomRules"))) {
+    } else if ($table.is($("#tblCustomRules"))) {
         arr = storage.customRules;
     }
     if (isUp) {
@@ -191,13 +190,19 @@ function createURLRow(onlineURL) {
                 $("<i>").addClass("glyphicon glyphicon-eye-open")
             )),
             $("<td>").append(
-                $("<input>", {type: "checkbox", title: getI18nMessage("autoUpdate")}).addClass("checkbox middle").prop("checked", onlineURL.auto).change(function () {
+                $("<input>", {
+                    type: "checkbox",
+                    title: getI18nMessage("autoUpdate")
+                }).addClass("checkbox middle").prop("checked", onlineURL.auto).change(function () {
                     var idx = $(this).closest("tr").index();
                     storage.onlineURLs[idx].auto = $(this).is(":checked");
                 })
             ),
             $("<td>").append(
-                $("<input>", {type: "checkbox", title: getI18nMessage("enable")}).addClass("checkbox middle").prop("checked", onlineURL.enable).change(function () {
+                $("<input>", {
+                    type: "checkbox",
+                    title: getI18nMessage("enable")
+                }).addClass("checkbox middle").prop("checked", onlineURL.enable).change(function () {
                     var idx = $(this).closest("tr").index();
                     storage.onlineURLs[idx].enable = $(this).is(":checked");
                 })
@@ -227,11 +232,14 @@ function createRuleRow(rule) {
             $("<td>").append($("<span>").text(rule.origin)),
             $("<td>").append($("<span>").text(rule.target)),
             $("<td>").append(
-                $("<input>", {type: "checkbox", title: getI18nMessage("enable")}).prop("checked", rule.enable).change(function () {
-                    var idx = $(this).closest("tr").index();
-                    storage.customRules[idx].enable = $(this).is(":checked");
-                }
-            )),
+                $("<input>", {
+                    type: "checkbox",
+                    title: getI18nMessage("enable")
+                }).prop("checked", rule.enable).change(function () {
+                        var idx = $(this).closest("tr").index();
+                        storage.customRules[idx].enable = $(this).is(":checked");
+                    }
+                )),
             $("<td>").append(
                 $("<button>").addClass("btn btn-xs btn-info").append(
                     $("<span>").addClass("glyphicon glyphicon-chevron-up")
@@ -266,7 +274,7 @@ $("#chbSync").change(function () {
 /* Download online url interval */
 $("#onlineInterval").change(function () {
     storage.updateInterval = parseInt($("#onlineInterval").val() * 60);
-    if (storage.updateInterval < 1 ) {
+    if (storage.updateInterval < 1) {
         storage.updateInterval = 1;
     }
 });
@@ -280,8 +288,9 @@ $("#btnReset").click(function () {
 $("#btnSave").click(function () {
     /* remove empty online url */
     var tmp = storage.onlineURLs;
+    console.log("storage.onlineURLs: ", tmp);
     storage.onlineURLs = [];
-    for (var i=0; i<tmp.length; i++) {
+    for (var i = 0; i < tmp.length; i++) {
         var onlineURL = tmp[i];
         if (onlineURL.url && onlineURL.url != "") {
             storage.onlineURLs.push(onlineURL);
@@ -289,11 +298,65 @@ $("#btnSave").click(function () {
     }
     /* remove empty custom rule */
     tmp = storage.customRules;
+    console.log("storage.customRules: ", tmp);
     storage.customRules = [];
-    for (var i=0; i<tmp.length; i++) {
+    for (var i = 0; i < tmp.length; i++) {
         var rule = tmp[i];
         if (rule.origin != "" && rule.target != "") {
             storage.customRules.push(rule)
+        }
+    }
+    /* save */
+    save({"storage": storage});
+});
+
+
+/* Init rules options */
+$("#btnSaveInit").click(function () {
+    let initJson = prompt("请输入初始化的规则JSON", "");
+    if (!initJson) {
+        alert("输入的值不能为空!!");
+        return;
+    }
+    storage.customRules = [];
+    let rules = [];
+    try {
+        rules = JSON.parse(initJson);
+    } catch (e) {
+        alert("json格式不正确!!" + e.description);
+        return;
+    }
+
+    if (rules.length == 0) {
+        alert("请输入至少一条规则!!");
+        return;
+    }
+    if (Object.prototype.toString.call(rules) == '[object Array]') {
+        rules.forEach(item => {
+            var rule = new Rule();
+            rule.fromObject(item);
+            storage.customRules.push(rule)
+        });
+    }
+
+    /* remove empty online url */
+    let tmp = storage.onlineURLs;
+    // console.log("storage.onlineURLs: ", tmp);
+    storage.onlineURLs = [];
+    for (let i = 0; i < tmp.length; i++) {
+        let onlineURL = tmp[i];
+        if (onlineURL.url && onlineURL.url != "") {
+            storage.onlineURLs.push(onlineURL);
+        }
+    }
+    /* remove empty custom rule */
+    tmp = storage.customRules;
+    // console.log("storage.customRules: ", tmp);
+    storage.customRules = [];
+    for (let i = 0; i < tmp.length; i++) {
+        let rule = tmp[i];
+        if (rule.origin != "" && rule.target != "") {
+            storage.customRules.push(rule);
         }
     }
     /* save */
@@ -339,8 +402,7 @@ function displayAll() {
         $("#lblSync").attr("title", SYNC_NOT_SUPPORTED);
         $("#chbSync").prop("disabled", true);
         $("#chbSync").prop("checked", false);
-    }
-    else if (storage.sync !== undefined ) {
+    } else if (storage.sync !== undefined) {
         $("#chbSync").prop("checked", storage.sync);
     }
     /* online urls */
@@ -419,18 +481,16 @@ $("#btnDownload").click(function () {
 browser.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.method == "downloaded") {
         $("#downloadState").text("");
-    }
-    else if (message.method == "downloadError" || message.method == "parseError") {
+    } else if (message.method == "downloadError" || message.method == "parseError") {
         // download error
         var m = getI18nMessage(message.method);
         m += "\n";
         var urls = message.args;
-        for (var i=0; i< urls.length; i++) {
+        for (var i = 0; i < urls.length; i++) {
             m += urls[i] + "\n";
         }
         alert(m);
-    }
-    else {
+    } else {
         console.error("Unknown method");
     }
 });
@@ -441,8 +501,8 @@ var editingOnlineURLIdx = 0;
 /* Show online url modal */
 function showOnlineURLModal(onlineURL) {
     editingOnlineURL = onlineURL;
-    for (var i=0; i<storage.onlineURLs.length; i++){
-        if (editingOnlineURL == storage.onlineURLs[i]){
+    for (var i = 0; i < storage.onlineURLs.length; i++) {
+        if (editingOnlineURL == storage.onlineURLs[i]) {
             editingOnlineURLIdx = i;
             break;
         }
@@ -451,7 +511,7 @@ function showOnlineURLModal(onlineURL) {
     var $tbody = $("#modalViewOnlineURL tbody");
     $tbody.empty();
     if (onlineURL.rules && onlineURL.rules.length > 0) {
-        for (var i=0; i<onlineURL.rules.length; i++) {
+        for (var i = 0; i < onlineURL.rules.length; i++) {
             var rule = onlineURL.rules[i];
             $tbody.append(
                 $("<tr>").append(
@@ -538,15 +598,15 @@ function showEditCustomRuleModal(rule) {
         $("#txtExclude").val(rule.exclude);
         $("#txtExample").val(rule.example);
         if (rule.process) {
-            $("input:radio[name='process'][value='"+ rule.process+ "']").prop("checked", true);
+            $("input:radio[name='process'][value='" + rule.process + "']").prop("checked", true);
         } else {
             $("input:radio[name='process'][value='']").prop("checked", true);
         }
         $("#txtTestResult").val("");
         if (rule.methods && rule.methods.length > 0) {
             $("#cbMethodAll").prop("checked", false);
-            for (var i=0; i<rule.methods.length; i++) {
-                $("#cbMethod_"+rule.methods[i]).prop("checked", true);
+            for (var i = 0; i < rule.methods.length; i++) {
+                $("#cbMethod_" + rule.methods[i]).prop("checked", true);
             }
             $("#divMethods").collapse("show");
         } else {
@@ -556,8 +616,8 @@ function showEditCustomRuleModal(rule) {
 
         if (rule.types && rule.types.length > 0) {
             $("#cbTypeAll").prop("checked", false);
-            for (var i=0; i<rule.types.length; i++) {
-                $("#cbType_"+rule.types[i]).prop("checked", true);
+            for (var i = 0; i < rule.types.length; i++) {
+                $("#cbType_" + rule.types[i]).prop("checked", true);
             }
             $("#divTypes").collapse("show");
         } else {
@@ -600,6 +660,7 @@ function testRule() {
     var newURL = testRule.redirect(exampleURL);
     $("#txtTestResult").val(newURL);
 }
+
 // Auto test
 $("#txtExample").bind('input propertychange', function () {
     testRule();

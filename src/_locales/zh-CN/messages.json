@@ -7,7 +7,6 @@
     "message": "帮助你重定向特定网页到新地址",
     "description": "Description of the extension."
   },
-
   "redirect": {
     "message": "重定向",
     "description": "Redirect."
@@ -28,7 +27,6 @@
     "message": "更新间隔",
     "description": "Interval."
   },
-
   "optionsTitle": {
     "message": "URLRedirector 配置",
     "description": "Title of options page."
@@ -56,6 +54,10 @@
   "save": {
     "message": "保存",
     "description": "Save."
+  },
+  "init": {
+    "message": "初始化",
+    "description": "Init."
   },
   "reset": {
     "message": "重置",
@@ -125,7 +127,6 @@
     "message": "优先顺序",
     "description": "Rule priority."
   },
-
   "userRules": {
     "message": "用户规则",
     "description": "User rules."
@@ -150,7 +151,6 @@
     "message": "目标地址",
     "description": "Target URL pattern."
   },
-
   "details": {
     "message": "详情",
     "description": "Details"
@@ -175,7 +175,6 @@
     "message": "文件",
     "description": "File."
   },
-
   "descriptionPlaceholder": {
     "message": "规则描述，可选",
     "description": "Description."
@@ -232,7 +231,6 @@
     "message": "类型说明",
     "description": "Types description."
   },
-
   "jsonFormat": {
     "message": "JSON 格式用户规则",
     "description": "JSON format."

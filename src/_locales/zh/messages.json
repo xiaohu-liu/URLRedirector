@@ -57,6 +57,10 @@
     "message": "保存",
     "description": "Save."
   },
+  "init": {
+    "message": "初始化",
+    "description": "Init."
+  },
   "reset": {
     "message": "重置",
     "description": "Reset."

@@ -7,7 +7,6 @@
     "message": "Automatically redirect specific urls.",
     "description": "Description of the extension."
   },
-
   "redirect": {
     "message": "Redirect",
     "description": "Redirect."
@@ -28,7 +27,6 @@
     "message": "Interval",
     "description": "Interval."
   },
-
   "optionsTitle": {
     "message": "URLRedirector Options",
     "description": "Title of options page."
@@ -56,6 +54,10 @@
   "save": {
     "message": "Save",
     "description": "Save."
+  },
+  "init": {
+    "message": "Init",
+    "description": "Init."
   },
   "reset": {
     "message": "Reset",
@@ -125,7 +127,6 @@
     "message": "Priority",
     "description": "Rule priority."
   },
-
   "userRules": {
     "message": "User Rules",
     "description": "User rules."
@@ -150,7 +151,6 @@
     "message": "Target",
     "description": "Target URL pattern."
   },
-
   "details": {
     "message": "Details",
     "description": "Details"
@@ -175,7 +175,6 @@
     "message": "File",
     "description": "File."
   },
-
   "descriptionPlaceholder": {
     "message": "Rule description, optional",
     "description": "Description."
@@ -232,7 +231,6 @@
     "message": "Description",
     "description": "Types description."
   },
-
   "jsonFormat": {
     "message": "JSON Format",
     "description": "JSON format."
